@@ -37,15 +37,18 @@ let createTimeOutEvent = function (timeStamp) {
     return this 
 }
 
-let hoursWorkedOnDate = function (workDate) {
-    let timeIn = this.timeInEvents.find(function(day) {
-        return day.date === workDate
+let hoursWorkedOnDate = function(soughtDate){
+    let inEvent = this.timeInEvents.find(function(e){
+        return e.date === soughtDate
     })
-    let timeOut = this.timeOutEvents.find(function(day) {
-        return day.date === workDate 
+
+    let outEvent = this.timeOutEvents.find(function(e){
+        return e.date === soughtDate
     })
-    return (timeOut.hour - timeIn.hour) / 100
+
+    return (outEvent.hour - inEvent.hour) / 100
 }
+
 
 let wagesEarnedOnDate = function (workDate) {
     let earnings = hoursWorkedOnDate.call(this, workDate) * this.payPerHour
